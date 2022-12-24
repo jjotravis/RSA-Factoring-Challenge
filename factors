@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+import math
+from sys import argv
+"""Factorise as many numbers as possible into a product of two numbers"""
+
+def factorize(num):
+    """the factors"""
+    if num % 2 == 0:
+        i = 2
+        print("{}={}*{}".format(num, int(num / i), i))
+    else:
+        sq = int(math.sqrt(num)) + 1
+        for i in range(3, sq, 2):
+            if num % i == 0:
+                print("{}={}*{}".format(num, int(num // i), i))
+                return
+            if num % (sq + i) == 0:
+                print("{}={}*{}".format(num, sq + i, int(num // (sq + i))))
+                return
+            if num % (sq - i) == 0:
+                print("{}={}*{}".format(num, sq - i, int(num // (sq - 1))))
+                return
+
+def factors(filename):
+    """reads filename"""
+
+    with open(filename, encoding="utf-8") as my_file:
+        for i in my_file.readlines():
+            n = int(i)
+            result = factorize(n)
+
+if __name__ == "__main__":
+    factors(argv[1])
